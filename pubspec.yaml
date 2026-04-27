@@ -1,0 +1,130 @@
+name: kendjino_exchange
+description: Kendjino EXCHANGE – Fintech app for unbanked youth in Haiti
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.2.0 <4.0.0"
+
+# -------------------- DEPENDENCIES --------------------
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_localizations:
+    sdk: flutter
+
+  # 🧠 STATE MANAGEMENT
+  flutter_riverpod: ^2.5.1
+  riverpod_annotation: ^2.3.5
+
+  # 🔥 FIREBASE CORE
+  firebase_core: ^2.30.1
+  firebase_auth: ^4.19.6
+  cloud_firestore: ^4.17.4
+  firebase_storage: ^11.7.6
+  firebase_messaging: ^14.9.4
+
+  # 🌐 NAVIGATION
+  go_router: ^13.2.0
+
+  # 🌍 NETWORK / API
+  dio: ^5.4.3
+  pretty_dio_logger: ^1.3.1
+
+  # 💾 LOCAL STORAGE & SECURITY
+  flutter_secure_storage: ^9.0.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  shared_preferences: ^2.2.3
+
+  # 🔐 BIOMETRIC
+  local_auth: ^2.2.0
+
+  # 🔄 UTILITIES
+  intl: 0.20.2
+  uuid: ^4.4.0
+  logger: ^2.3.0
+  equatable: ^2.0.8
+
+  # 🎨 UI / UX
+  lottie: ^3.1.2
+  flutter_animate: ^4.5.0
+  shimmer: ^3.0.0
+  cached_network_image: ^3.3.1
+  flutter_svg: ^2.0.10+1
+  fl_chart: ^0.67.0
+
+  # 💳 FORMS / INPUT
+  pinput: ^3.0.1
+  intl_phone_field: ^3.2.0
+
+  # 🔔 NOTIFICATIONS
+  flutter_local_notifications: ^17.2.2
+
+  # 📶 CONNECTIVITY
+  connectivity_plus: ^6.0.3
+
+  # 📸 MEDIA
+  image_picker: ^1.1.2
+  permission_handler: ^11.3.1
+
+  # 🔗 SHARING & LINKS
+  url_launcher: ^6.3.0
+  share_plus: ^9.0.0
+
+  # 📁 FILE SYSTEM
+  path_provider: ^2.1.3
+
+  # 📊 APP INFO
+  package_info_plus: ^8.0.0
+  encrypt: ^5.0.3
+
+# -------------------- DEV DEPENDENCIES --------------------
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.0
+
+  # 🏗 CODE GENERATION
+  build_runner: ^2.4.9
+  riverpod_generator: ^2.4.0
+  freezed: ^2.5.2
+  freezed_annotation: ^2.4.1
+  json_serializable: ^6.8.0
+  json_annotation: ^4.9.0
+  retrofit_generator: ^8.1.0
+  hive_generator: ^2.0.1
+
+  # 🧪 TESTING
+  mockito: ^5.4.4
+  mocktail: ^1.0.3
+
+# -------------------- FLUTTER CONFIG --------------------
+flutter:
+  uses-material-design: true
+  generate: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/lottie/
+
+  fonts:
+    - family: Satoshi
+      fonts:
+        - asset: assets/fonts/Satoshi-Regular.ttf
+        - asset: assets/fonts/Satoshi-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Satoshi-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Satoshi-Black.ttf
+          weight: 900
+
+    - family: SpaceMono
+      fonts:
+        - asset: assets/fonts/SpaceMono-Regular.ttf
+        - asset: assets/fonts/SpaceMono-Bold.ttf
+          weight: 700
