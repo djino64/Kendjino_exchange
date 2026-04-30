@@ -251,11 +251,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(
         path: RouteNames.splash,
-        builder: (_, _) => const SplashScreen(),
+        builder: (_, __) => const SplashScreen(),
       ),
       GoRoute(
         path: RouteNames.login,
-        builder: (_, _) => const LoginScreen(),
+        builder: (_, __) => const LoginScreen(),
       ),
       GoRoute(
         path: RouteNames.otp,
@@ -272,33 +272,33 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         routes: [
           GoRoute(
             path: RouteNames.dashboard,
-            builder: (_, _) => const DashboardScreen(),
+            builder: (_, __) => const DashboardScreen(),
           ),
           GoRoute(
             path: RouteNames.wallet,
-            builder: (_, _) => const WalletScreen(),
+            builder: (_, __) => const WalletScreen(),
           ),
           GoRoute(
             path: RouteNames.exchange,
-            builder: (_, _) => const ExchangeScreen(),
+            builder: (_, __) => const ExchangeScreen(),
           ),
           GoRoute(
             path: RouteNames.crypto,
-            builder: (_, _) => const CryptoScreen(),
+            builder: (_, __) => const CryptoScreen(),
           ),
           GoRoute(
             path: RouteNames.history,
-            builder: (_, _) => const HistoryScreen(),
+            builder: (_, __) => const HistoryScreen(),
           ),
           GoRoute(
             path: RouteNames.settings,
-            builder: (_, _) => const SettingsScreen(),
+            builder: (_, __) => const SettingsScreen(),
           ),
         ],
       ),
       GoRoute(
         path: RouteNames.sendMoney,
-        builder: (_, _) => const SendMoneyScreen(),
+        builder: (_, __) => const SendMoneyScreen(),
       ),
     ],
     errorBuilder: (context, state) => Scaffold(
@@ -346,11 +346,21 @@ class MainShell extends StatelessWidget {
         selectedIndex: index,
         onDestinationSelected: (i) {
           switch (i) {
-            case 0: context.go(RouteNames.dashboard); break;
-            case 1: context.go(RouteNames.exchange); break;
-            case 2: context.go(RouteNames.crypto); break;
-            case 3: context.go(RouteNames.history); break;
-            case 4: context.go(RouteNames.settings); break;
+            case 0:
+              context.go(RouteNames.dashboard);
+              break;
+            case 1:
+              context.go(RouteNames.exchange);
+              break;
+            case 2:
+              context.go(RouteNames.crypto);
+              break;
+            case 3:
+              context.go(RouteNames.history);
+              break;
+            case 4:
+              context.go(RouteNames.settings);
+              break;
           }
         },
         destinations: const [

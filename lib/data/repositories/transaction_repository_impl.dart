@@ -40,18 +40,21 @@ class TransactionRepositoryImpl implements TransactionRepository {
   Future<TransactionEntity> createTransaction(TransactionEntity tx) async {
     final model = TransactionModel(
       id: tx.id,
-      senderUid: tx.senderUid,
-      receiverPhone: tx.receiverPhone,
+      userId: tx.userId,
+      senderName: tx.senderName ?? '',
+      senderPhone: tx.senderPhone ?? '',
+      receiverPhone: tx.receiverPhone ?? '',
       amount: tx.amount,
       currency: tx.currency,
       type: tx.type,
       status: tx.status,
       createdAt: tx.createdAt,
+      paymentMethod: tx.paymentMethod,
       fee: tx.fee,
-      note: tx.note,
+      note: tx.description,
       referenceNumber: tx.referenceNumber,
       receiverName: tx.receiverName,
-      senderPhone: tx.senderPhone,
+      completedAt: tx.completedAt,
     );
     return _firestore.createTransaction(model);
   }
@@ -69,17 +72,20 @@ class TransactionRepositoryImpl implements TransactionRepository {
 
   Map<String, dynamic> _txToMap(TransactionEntity tx) => {
         'id': tx.id,
-        'senderUid': tx.senderUid,
+        'userId': tx.userId,
+        'senderUid': tx.userId,
+        'senderName': tx.senderName,
+        'senderPhone': tx.senderPhone,
         'receiverPhone': tx.receiverPhone,
         'amount': tx.amount,
         'currency': tx.currency,
         'type': tx.type.name,
         'status': tx.status.name,
         'createdAt': tx.createdAt.millisecondsSinceEpoch,
+        'paymentMethod': tx.paymentMethod.name,
         'fee': tx.fee,
-        'note': tx.note,
+        'note': tx.description,
         'referenceNumber': tx.referenceNumber,
         'receiverName': tx.receiverName,
-        'senderPhone': tx.senderPhone,
       };
 }

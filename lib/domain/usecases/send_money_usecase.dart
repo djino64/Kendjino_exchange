@@ -27,9 +27,8 @@ class SendMoneyUseCase {
       currency: currency,
       receiverPhone: receiverPhone,
       description: note,
-      paymentMethod: PaymentMethod.wallet,
+      paymentMethod: PaymentMethod.internal,
       createdAt: DateTime.now(),
-      
     );
 
     // Create transaction record

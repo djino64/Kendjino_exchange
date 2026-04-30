@@ -174,7 +174,7 @@ class AppTheme {
           horizontal: 16,
           vertical: 16,
         ),
-        hintStyle: TextStyle(
+        hintStyle: const TextStyle(
           color: textMuted,
           fontFamily: 'Satoshi',
           fontSize: 15,
@@ -212,7 +212,7 @@ class AppTheme {
           if (states.contains(WidgetState.selected)) {
             return const IconThemeData(color: primaryGreen);
           }
-          return IconThemeData(color: textMuted);
+          return const IconThemeData(color: textMuted);
         }),
         labelTextStyle: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
@@ -306,7 +306,7 @@ class AppTheme {
           fontSize: 14,
           color: isDark ? textLight : textDark,
         ),
-        bodySmall: TextStyle(
+        bodySmall: const TextStyle(
           fontFamily: 'Satoshi',
           fontSize: 12,
           color: textMuted,

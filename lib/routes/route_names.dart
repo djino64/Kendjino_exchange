@@ -1,7 +1,7 @@
 class RouteNames {
   RouteNames._();
   static const String splash = '/';
-  static const String login ='/login'
+  static const String login = '/login';
   static const String otp = '/otp';
   static const String dashboard = '/dashboard';
   static const String wallet = '/wallet';
@@ -18,5 +18,7 @@ class RouteNames {
   static const String onboarding = '/onboarding';
   static const String pinSetup = '/pin-setup';
   static const String pinVerify = '/pin-verify';
-
+  static const String kyc = '/kyc';
+  static const String security = '/security';
+  static const String language = '/language';
 }

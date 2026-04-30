@@ -12,10 +12,8 @@ class FirestoreSource {
 
   // ── Users ──────────────────────────────────────────────────────────────────
   Future<UserModel?> getUser(String uid) async {
-    final doc = await _db
-        .collection(AppConstants.usersCollection)
-        .doc(uid)
-        .get();
+    final doc =
+        await _db.collection(AppConstants.usersCollection).doc(uid).get();
     if (!doc.exists) return null;
     return UserModel.fromFirestore(doc.data()!, doc.id);
   }
@@ -44,12 +42,9 @@ class FirestoreSource {
     final withId = WalletModel(
       id: ref.id,
       userId: wallet.userId,
-      htgBalance: wallet.htgBalance,
-      usdBalance: wallet.usdBalance,
+      balances: wallet.balances,
+      lastUpdated: wallet.lastUpdated,
       walletNumber: wallet.walletNumber,
-      createdAt: wallet.createdAt,
-      usdtBalance: wallet.usdtBalance,
-      btcBalance: wallet.btcBalance,
     );
     await ref.set(withId.toFirestore());
     return withId;
@@ -60,7 +55,7 @@ class FirestoreSource {
     String currency,
     double amount,
   ) async {
-    final field = _currencyToField(currency);
+    final field = 'balances.$currency';
     await _db
         .collection(AppConstants.walletsCollection)
         .doc(walletId)
@@ -105,18 +100,21 @@ class FirestoreSource {
     final ref = _db.collection(AppConstants.transactionsCollection).doc();
     final withId = TransactionModel(
       id: ref.id,
-      senderUid: tx.senderUid,
-      receiverPhone: tx.receiverPhone,
+      userId: tx.userId,
+      senderName: tx.senderName ?? '',
+      senderPhone: tx.senderPhone ?? '',
+      receiverPhone: tx.receiverPhone ?? '',
       amount: tx.amount,
       currency: tx.currency,
       type: tx.type,
       status: tx.status,
       createdAt: tx.createdAt,
+      paymentMethod: tx.paymentMethod,
       fee: tx.fee,
       note: tx.note,
       referenceNumber: tx.referenceNumber,
       receiverName: tx.receiverName,
-      senderPhone: tx.senderPhone,
+      completedAt: tx.completedAt,
     );
     await ref.set(withId.toFirestore());
     return withId;
@@ -130,18 +128,7 @@ class FirestoreSource {
         .limit(20)
         .snapshots()
         .map((snap) => snap.docs
-            .map((d) => TransactionModel.fromFirestore(
-                d.data(), d.id))
+            .map((d) => TransactionModel.fromFirestore(d.data(), d.id))
             .toList());
-  }
-
-  String _currencyToField(String currency) {
-    switch (currency) {
-      case 'HTG': return 'htgBalance';
-      case 'USD': return 'usdBalance';
-      case 'USDT': return 'usdtBalance';
-      case 'BTC': return 'btcBalance';
-      default: return 'htgBalance';
-    }
   }
 }

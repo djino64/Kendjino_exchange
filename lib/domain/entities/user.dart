@@ -4,51 +4,65 @@ import 'package:equatable/equatable.dart';
 class UserEntity extends Equatable {
   final String uid;
   final String phoneNumber;
-  final String? fullName;
+  final String? displayName;
   final String? email;
-  final String? avatarUrl;
-  final KycStatus kycStatus;
+  final String? photoUrl;
   final DateTime createdAt;
+  final bool isVerified;
+  final String preferredLanguage;
+  final bool hasBiometric;
+  final bool hasPin;
+  final String? walletId;
+  final KycStatus kycStatus;
   final DateTime? lastLoginAt;
-  final UserPreferences preferences;
-  final bool isActive;
+  
 
   const UserEntity({
     required this.uid,
     required this.phoneNumber,
-    this.fullName,
+    this.displayName,
     this.email,
-    this.avatarUrl,
-    this.kycStatus = KycStatus.pending,
+    this.photoUrl,
     required this.createdAt,
+    this.isVerified = false,
+    this.preferredLanguage = 'fr',
+    this.hasBiometric = false,
+    this.hasPin = false,
+    this.walletId,
+    this.kycStatus = KycStatus.pending,
     this.lastLoginAt,
-    this.preferences = const UserPreferences(),
-    this.isActive = true,
   });
 
   UserEntity copyWith({
     String? uid,
     String? phoneNumber,
-    String? fullName,
+    String? displayName,
     String? email,
-    String? avatarUrl,
-    KycStatus? kycStatus,
+    String? photoUrl,
     DateTime? createdAt,
+    bool? isVerified,
+    String? preferredLanguage,
+    bool? hasBiometric,
+    bool? hasPin,
+    String? walletId,
+    KycStatus? kycStatus,
     DateTime? lastLoginAt,
-    UserPreferences? preferences,
-    bool? isActive,
   }) {
     return UserEntity(
       uid: uid ?? this.uid,
       phoneNumber: phoneNumber ?? this.phoneNumber,
-      fullName: fullName ?? this.fullName,
+      displayName: displayName ?? this.displayName,
       email: email ?? this.email,
-      avatarUrl: avatarUrl ?? this.avatarUrl,
+      photoUrl: photoUrl ?? this.photoUrl,
+      isVerified: isVerified ?? this.isVerified,
+      preferredLanguage: preferredLanguage ?? this.preferredLanguage,
+      hasBiometric: hasBiometric ?? this.hasBiometric,
+      hasPin: hasPin ?? this.hasPin,
+      walletId: walletId ?? this.walletId,
       kycStatus: kycStatus ?? this.kycStatus,
       createdAt: createdAt ?? this.createdAt,
       lastLoginAt: lastLoginAt ?? this.lastLoginAt,
-      preferences: preferences ?? this.preferences,
-      isActive: isActive ?? this.isActive,
+
     );
   }
 
@@ -56,14 +70,18 @@ class UserEntity extends Equatable {
   List<Object?> get props => [
     uid,
     phoneNumber,
-    fullName,
+    displayName,
     email,
-    avatarUrl,
-    kycStatus,
+    photoUrl,
     createdAt,
+    isVerified,
+    preferredLanguage,
+    hasBiometric,
+    hasPin,
+    walletId,
+    kycStatus,
     lastLoginAt,
-    preferences,
-    isActive,
+
   ];
 }
 

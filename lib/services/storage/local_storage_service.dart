@@ -3,7 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../../core/constants/app_constants.dart';
 
 class LocalStorageService {
-  // ── Settings ───────────────────────────────────────────────────────────────
+  // ── Parametres ───────────────────────────────────────────────────────────────
   Box get _settings => Hive.box(AppConstants.settingsBox);
 
   Future<void> setThemeMode(String mode) async =>
@@ -28,7 +28,7 @@ class LocalStorageService {
       _settings.put('last_user_id', uid);
   String? getLastUserId() => _settings.get('last_user_id');
 
-  // ── Generic ────────────────────────────────────────────────────────────────
+  // ── Tout sa ki pral jenere yo ────────────────────────────────────────────────────────────────
   Future<void> put(String key, dynamic value) async =>
       _settings.put(key, value);
   T get<T>(String key, {T? defaultValue}) =>

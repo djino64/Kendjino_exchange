@@ -1,7 +1,6 @@
 // lib/presentation/providers/crypto_provider.dart
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../domain/entities/entities.dart';
-import '../../injection/dependency_injection.dart';
 import '../../services/crypto/crypto_service.dart';
 
 final cryptoServiceProvider = Provider<CryptoService>((ref) {

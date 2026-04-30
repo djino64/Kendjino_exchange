@@ -31,12 +31,9 @@ class WalletRepositoryImpl implements WalletRepository {
     final wallet = WalletModel(
       id: '',
       userId: userId,
-      htgBalance: 0.0,
-      usdBalance: 0.0,
+      balances: const {},
+      lastUpdated: DateTime.now(),
       walletNumber: walletNumber,
-      createdAt: DateTime.now(),
-      usdtBalance: 0.0,
-      btcBalance: 0.0,
     );
     return _firestore.createWallet(wallet);
   }
@@ -64,10 +61,13 @@ class WalletRepositoryImpl implements WalletRepository {
     final cached = _local.getCachedRate(pair);
     if (cached != null) {
       return ExchangeRateEntity(
-        from: from,
-        to: to,
+        fromCurrency: from,
+        toCurrency: to,
         rate: cached,
-        updatedAt: DateTime.now(),
+        buyRate: cached,
+        sellRate: cached,
+        fetchedAt: DateTime.now(),
+        isCached: true,
       );
     }
 
@@ -81,27 +81,34 @@ class WalletRepositoryImpl implements WalletRepository {
     await _local.cacheExchangeRate(pair, rate);
 
     return ExchangeRateEntity(
-      from: from,
-      to: to,
+      fromCurrency: from,
+      toCurrency: to,
       rate: rate,
-      updatedAt: DateTime.now(),
+      buyRate: rate,
+      sellRate: rate,
+      fetchedAt: DateTime.now(),
+      isCached: false,
     );
   }
 
   @override
   Future<VirtualCardEntity> getVirtualCard(String userId) async {
     // Mock virtual card
+    final cardNumber = _generateCardNumber();
+    final stripped = cardNumber.replaceAll(' ', '');
+    final last4 = stripped.substring(stripped.length - 4);
     return VirtualCardEntity(
       id: 'vc_$userId',
       userId: userId,
-      cardNumber: _generateCardNumber(),
-      cardHolderName: 'KENDJINO USER',
+      maskedNumber: '**** **** **** $last4',
+      last4: last4,
       expiryMonth: '12',
       expiryYear: '27',
-      cvv: '***',
+      cardHolderName: 'KENDJINO USER',
       network: AppConstants.cardNetworkVisa,
-      isActive: true,
-      createdAt: DateTime.now(),
+      balance: 0.0,
+      currency: 'USD',
+      issuedAt: DateTime.now(),
     );
   }
 

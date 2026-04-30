@@ -34,9 +34,15 @@ class _SendMoneyScreenState extends ConsumerState<SendMoneyScreen>
     _tabCtrl.addListener(() {
       setState(() {
         switch (_tabCtrl.index) {
-          case 0: _provider = 'internal'; break;
-          case 1: _provider = 'moncash'; break;
-          case 2: _provider = 'natcash'; break;
+          case 0:
+            _provider = 'internal';
+            break;
+          case 1:
+            _provider = 'moncash';
+            break;
+          case 2:
+            _provider = 'natcash';
+            break;
         }
       });
     });
@@ -78,8 +84,8 @@ class _SendMoneyScreenState extends ConsumerState<SendMoneyScreen>
   Future<bool> _showConfirmation(double amount) async {
     final wallet = ref.read(walletProvider).wallet;
     final balance = _currency == 'HTG'
-        ? (wallet?.htgBalance ?? 0)
-        : (wallet?.usdBalance ?? 0);
+        ? (wallet?.getBalance('HTG') ?? 0)
+        : (wallet?.getBalance('USD') ?? 0);
     final fee = _currency == 'HTG' ? amount * 0.01 : amount * 0.015;
 
     return await showModalBottomSheet<bool>(
@@ -113,8 +119,7 @@ class _SendMoneyScreenState extends ConsumerState<SendMoneyScreen>
                     style: Theme.of(context).textTheme.headlineSmall),
                 const SizedBox(height: 20),
                 _ConfirmRow('Destinataire', _phoneCtrl.text),
-                _ConfirmRow('Montant',
-                    Formatter.currency(amount, _currency)),
+                _ConfirmRow('Montant', Formatter.currency(amount, _currency)),
                 _ConfirmRow('Frais', Formatter.currency(fee, _currency)),
                 const Divider(height: 24),
                 _ConfirmRow(
@@ -168,7 +173,8 @@ class _SendMoneyScreenState extends ConsumerState<SendMoneyScreen>
                 color: AppColors.success.withOpacity(0.1),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.check, color: AppColors.success, size: 40),
+              child:
+                  const Icon(Icons.check, color: AppColors.success, size: 40),
             ),
             const SizedBox(height: 16),
             const Text('Transfert réussi!',
@@ -238,7 +244,8 @@ class _SendMoneyScreenState extends ConsumerState<SendMoneyScreen>
               // Balance indicator
               if (walletState.wallet != null)
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   decoration: BoxDecoration(
                     color: AppColors.primary.withOpacity(0.08),
                     borderRadius: BorderRadius.circular(12),
@@ -249,9 +256,10 @@ class _SendMoneyScreenState extends ConsumerState<SendMoneyScreen>
                           color: AppColors.primary, size: 18),
                       const SizedBox(width: 8),
                       Text(
-                        'Solde: ${Formatter.currency(_currency == 'HTG' ? walletState.wallet!.htgBalance : walletState.wallet!.usdBalance, _currency)}',
+                        'Solde: ${Formatter.currency(_currency == 'HTG' ? walletState.wallet!.getBalance('HTG') : walletState.wallet!.getBalance('USD'), _currency)}',
                         style: const TextStyle(
-                            color: AppColors.primary, fontWeight: FontWeight.w600),
+                            color: AppColors.primary,
+                            fontWeight: FontWeight.w600),
                       ),
                     ],
                   ),
@@ -274,7 +282,8 @@ class _SendMoneyScreenState extends ConsumerState<SendMoneyScreen>
                   indicatorSize: TabBarIndicatorSize.tab,
                   labelColor: Colors.white,
                   unselectedLabelColor: AppColors.textMuted,
-                  labelStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
+                  labelStyle: const TextStyle(
+                      fontWeight: FontWeight.w700, fontSize: 13),
                   dividerColor: Colors.transparent,
                   tabs: const [
                     Tab(text: 'Kendjino'),
@@ -287,8 +296,7 @@ class _SendMoneyScreenState extends ConsumerState<SendMoneyScreen>
               const SizedBox(height: 24),
 
               // Phone field
-              Text('Numéro du destinataire',
-                  style: theme.textTheme.labelLarge),
+              Text('Numéro du destinataire', style: theme.textTheme.labelLarge),
               const SizedBox(height: 8),
               TextFormField(
                 controller: _phoneCtrl,
@@ -297,8 +305,8 @@ class _SendMoneyScreenState extends ConsumerState<SendMoneyScreen>
                 decoration: InputDecoration(
                   hintText: '34 56 7890',
                   prefixText: '+509 ',
-                  prefixIcon:
-                      const Icon(Icons.phone_outlined, color: AppColors.primary),
+                  prefixIcon: const Icon(Icons.phone_outlined,
+                      color: AppColors.primary),
                   suffixIcon: IconButton(
                     icon: const Icon(Icons.contact_phone_outlined),
                     onPressed: () {},
@@ -320,20 +328,23 @@ class _SendMoneyScreenState extends ConsumerState<SendMoneyScreen>
                 children: [
                   // Currency selector
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 16),
                     decoration: BoxDecoration(
                       color: isDark ? AppColors.darkCard : AppColors.lightCard,
                       borderRadius: BorderRadius.circular(14),
                       border: Border.all(
-                        color: isDark ? AppColors.darkBorder : const Color(0xFFE0E7F0),
+                        color: isDark
+                            ? AppColors.darkBorder
+                            : const Color(0xFFE0E7F0),
                       ),
                     ),
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
                         value: _currency,
                         items: ['HTG', 'USD']
-                            .map((c) => DropdownMenuItem(
-                                value: c, child: Text(c)))
+                            .map((c) =>
+                                DropdownMenuItem(value: c, child: Text(c)))
                             .toList(),
                         onChanged: (v) => setState(() => _currency = v!),
                         isDense: true,
@@ -344,7 +355,8 @@ class _SendMoneyScreenState extends ConsumerState<SendMoneyScreen>
                   Expanded(
                     child: TextFormField(
                       controller: _amountCtrl,
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(RegExp(r'[\d,.]')),
                       ],
@@ -375,8 +387,7 @@ class _SendMoneyScreenState extends ConsumerState<SendMoneyScreen>
                         : [10, 25, 50, 100])
                     .map((amt) => ActionChip(
                           label: Text('$amt'),
-                          onPressed: () =>
-                              _amountCtrl.text = amt.toString(),
+                          onPressed: () => _amountCtrl.text = amt.toString(),
                         ))
                     .toList(),
               ),
@@ -414,7 +425,9 @@ class _SendMoneyScreenState extends ConsumerState<SendMoneyScreen>
                         )
                       : const Icon(Icons.send_rounded),
                   label: Text(
-                    txState.isSending ? 'Envoi en cours...' : 'Envoyer maintenant',
+                    txState.isSending
+                        ? 'Envoi en cours...'
+                        : 'Envoyer maintenant',
                     style: const TextStyle(fontWeight: FontWeight.w700),
                   ),
                 ),
@@ -435,8 +448,7 @@ class _ConfirmRow extends StatelessWidget {
   final bool bold;
   final Color? color;
 
-  const _ConfirmRow(this.label, this.value,
-      {this.bold = false, this.color});
+  const _ConfirmRow(this.label, this.value, {this.bold = false, this.color});
 
   @override
   Widget build(BuildContext context) {

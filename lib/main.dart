@@ -6,16 +6,13 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'core/constants/app_constants.dart';
 import 'core/theme/app_theme.dart';
-import 'core/utils/app_router.dart';
+import 'routes/app_router.dart';
 
 import 'l10n/app_localizations.dart';
 import 'presentation/providers/locale_provider.dart';
 import 'presentation/providers/theme_provider.dart';
 import 'services/notification/notification_service.dart';
-//import 'firebase_options.dart';
-import 'services/firebase/firebase_auth_service.dart';
-import 'injection/dependency_injection.dart';
-import 'services/biometric/biometric_service.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

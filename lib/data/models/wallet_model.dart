@@ -5,39 +5,32 @@ class WalletModel extends WalletEntity {
   const WalletModel({
     required super.id,
     required super.userId,
-    required super.htgBalance,
-    required super.usdBalance,
+    required super.balances,
+    required super.lastUpdated,
     required super.walletNumber,
-    required super.createdAt,
-    super.usdtBalance,
-    super.btcBalance,
   });
 
   factory WalletModel.fromFirestore(Map<String, dynamic> data, String id) {
     return WalletModel(
       id: id,
       userId: data['userId'] ?? '',
-      htgBalance: (data['htgBalance'] as num?)?.toDouble() ?? 0.0,
-      usdBalance: (data['usdBalance'] as num?)?.toDouble() ?? 0.0,
+      balances:
+          (data['balances'] as Map<String, dynamic>?)?.cast<String, double>() ??
+              {},
       walletNumber: data['walletNumber'] ?? '',
-      createdAt: data['createdAt'] != null
+      lastUpdated: data['lastUpdated'] != null
           ? DateTime.fromMillisecondsSinceEpoch(
-              (data['createdAt'] as dynamic).millisecondsSinceEpoch)
+              (data['lastUpdated'] as dynamic).millisecondsSinceEpoch)
           : DateTime.now(),
-      usdtBalance: (data['usdtBalance'] as num?)?.toDouble() ?? 0.0,
-      btcBalance: (data['btcBalance'] as num?)?.toDouble() ?? 0.0,
     );
   }
 
   Map<String, dynamic> toFirestore() {
     return {
       'userId': userId,
-      'htgBalance': htgBalance,
-      'usdBalance': usdBalance,
+      'balances': balances,
+      'lastUpdated': lastUpdated,
       'walletNumber': walletNumber,
-      'createdAt': createdAt,
-      'usdtBalance': usdtBalance,
-      'btcBalance': btcBalance,
     };
   }
 
@@ -45,12 +38,9 @@ class WalletModel extends WalletEntity {
     return WalletModel(
       id: entity.id,
       userId: entity.userId,
-      htgBalance: entity.htgBalance,
-      usdBalance: entity.usdBalance,
+      balances: entity.balances,
       walletNumber: entity.walletNumber,
-      createdAt: entity.createdAt,
-      usdtBalance: entity.usdtBalance,
-      btcBalance: entity.btcBalance,
+      lastUpdated: entity.lastUpdated,
     );
   }
 }

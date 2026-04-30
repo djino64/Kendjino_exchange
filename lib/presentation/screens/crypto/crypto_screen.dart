@@ -111,17 +111,17 @@ class _MarketTab extends ConsumerWidget {
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             gradient: const LinearGradient(
-              colors: [AppColors.primary, AppColors.secondary],
+              colors: [AppColors.primary, AppColors.success],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             borderRadius: BorderRadius.circular(16),
           ),
-          child: Row(
+          child: const Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _CryptoStat('BTC Dominance', '52.4%', AppColors.gold),
-              _CryptoStat('Fear & Greed', '72 — Greed', AppColors.warning),
+              _CryptoStat('Fear & Greed', '72 — Greed', AppColors.danger),
               _CryptoStat('24h Volume', '\$89.2B', AppColors.primary),
             ],
           ),
@@ -156,8 +156,7 @@ class _CryptoStat extends StatelessWidget {
             )),
         const SizedBox(height: 4),
         Text(label,
-            style: const TextStyle(
-                color: AppColors.textMuted, fontSize: 10)),
+            style: const TextStyle(color: AppColors.textMuted, fontSize: 10)),
       ],
     );
   }
@@ -405,8 +404,8 @@ class _TradeBottomSheetState extends ConsumerState<_TradeBottomSheet>
     final isProcessing = cryptoState.isBuying || cryptoState.isSelling;
 
     return Padding(
-      padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Container(
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
@@ -443,8 +442,7 @@ class _TradeBottomSheetState extends ConsumerState<_TradeBottomSheet>
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(widget.asset.name,
-                        style: theme.textTheme.titleLarge),
+                    Text(widget.asset.name, style: theme.textTheme.titleLarge),
                     Text(
                       '\$${widget.asset.priceUsd.toStringAsFixed(2)}',
                       style: const TextStyle(
@@ -469,9 +467,8 @@ class _TradeBottomSheetState extends ConsumerState<_TradeBottomSheet>
               child: TabBar(
                 controller: _tabCtrl,
                 indicator: BoxDecoration(
-                  color: _tabCtrl.index == 0
-                      ? AppColors.success
-                      : AppColors.error,
+                  color:
+                      _tabCtrl.index == 0 ? AppColors.success : AppColors.error,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 indicatorSize: TabBarIndicatorSize.tab,
@@ -506,8 +503,7 @@ class _TradeBottomSheetState extends ConsumerState<_TradeBottomSheet>
                 suffixStyle: const TextStyle(
                     color: AppColors.primary, fontWeight: FontWeight.w700),
                 prefixIcon: IconButton(
-                  icon: const Icon(Icons.swap_horiz,
-                      color: AppColors.primary),
+                  icon: const Icon(Icons.swap_horiz, color: AppColors.primary),
                   onPressed: () => setState(() => _inUsd = !_inUsd),
                 ),
               ),
@@ -518,8 +514,8 @@ class _TradeBottomSheetState extends ConsumerState<_TradeBottomSheet>
             // Equivalent
             if (_amountValue > 0)
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 14, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                 decoration: BoxDecoration(
                   color: AppColors.primary.withOpacity(0.06),
                   borderRadius: BorderRadius.circular(10),
@@ -569,9 +565,8 @@ class _TradeBottomSheetState extends ConsumerState<_TradeBottomSheet>
               height: 52,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: _tabCtrl.index == 0
-                      ? AppColors.success
-                      : AppColors.error,
+                  backgroundColor:
+                      _tabCtrl.index == 0 ? AppColors.success : AppColors.error,
                 ),
                 onPressed: isProcessing
                     ? null
@@ -644,8 +639,7 @@ class _PortfolioTab extends StatelessWidget {
               const SizedBox(height: 4),
               Text(
                 '≈ ${Formatter.currency(totalUsd * 132.5, 'HTG')}',
-                style: const TextStyle(
-                    color: Colors.white70, fontSize: 13),
+                style: const TextStyle(color: Colors.white70, fontSize: 13),
               ),
             ],
           ),
@@ -667,9 +661,7 @@ class _PortfolioTab extends StatelessWidget {
               color: isDark ? AppColors.darkCard : Colors.white,
               borderRadius: BorderRadius.circular(14),
               border: Border.all(
-                color: isDark
-                    ? AppColors.darkBorder
-                    : const Color(0xFFE8EDF2),
+                color: isDark ? AppColors.darkBorder : const Color(0xFFE8EDF2),
               ),
             ),
             child: Column(
@@ -690,8 +682,7 @@ class _PortfolioTab extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(asset.symbol,
-                              style: theme.textTheme.titleSmall),
+                          Text(asset.symbol, style: theme.textTheme.titleSmall),
                           Text(
                             '${balance.toStringAsFixed(8)} ${asset.symbol}',
                             style: theme.textTheme.bodySmall?.copyWith(
@@ -739,8 +730,7 @@ class _PortfolioTab extends StatelessWidget {
         }),
 
         if (cryptoState.assets.isEmpty ||
-            cryptoState.assets
-                .every((a) => (a.balance ?? 0) == 0))
+            cryptoState.assets.every((a) => (a.balance ?? 0) == 0))
           Container(
             padding: const EdgeInsets.all(32),
             child: Column(
@@ -757,8 +747,7 @@ class _PortfolioTab extends StatelessWidget {
                 const SizedBox(height: 4),
                 const Text(
                   'Achetez votre premier Bitcoin ou USDT',
-                  style: TextStyle(
-                      color: AppColors.textMuted, fontSize: 13),
+                  style: TextStyle(color: AppColors.textMuted, fontSize: 13),
                   textAlign: TextAlign.center,
                 ),
               ],

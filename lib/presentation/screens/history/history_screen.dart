@@ -24,7 +24,8 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
     final theme = Theme.of(context);
 
     final filtered = txState.transactions.where((tx) {
-      if (_filter == 'sent' && tx.type != TransactionType.transfer) return false;
+      if (_filter == 'sent' && tx.type != TransactionType.transfer)
+        return false;
       if (_filter == 'received' &&
           tx.type != TransactionType.received &&
           tx.type != TransactionType.deposit) {
@@ -32,7 +33,7 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
       }
       if (_search.isNotEmpty) {
         final q = _search.toLowerCase();
-        return tx.receiverPhone.contains(q) ||
+        return (tx.receiverPhone?.contains(q) ?? false) ||
             (tx.receiverName?.toLowerCase().contains(q) ?? false) ||
             tx.amount.toString().contains(q);
       }
@@ -65,7 +66,8 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                   onChanged: (v) => setState(() => _search = v),
                   decoration: InputDecoration(
                     hintText: 'Rechercher...',
-                    prefixIcon: const Icon(Icons.search, color: AppColors.textMuted),
+                    prefixIcon:
+                        const Icon(Icons.search, color: AppColors.textMuted),
                     suffixIcon: _search.isNotEmpty
                         ? IconButton(
                             icon: const Icon(Icons.clear),
@@ -123,18 +125,19 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                 ? const Center(
                     child: CircularProgressIndicator(color: AppColors.primary))
                 : filtered.isEmpty
-                    ? _EmptyState(hasFilter: _filter != 'all' || _search.isNotEmpty)
+                    ? _EmptyState(
+                        hasFilter: _filter != 'all' || _search.isNotEmpty)
                     : RefreshIndicator(
                         color: AppColors.primary,
-                        onRefresh: () =>
-                            ref.read(transactionProvider.notifier).loadTransactions(),
+                        onRefresh: () => ref
+                            .read(transactionProvider.notifier)
+                            .loadTransactions(),
                         child: ListView.separated(
                           padding: const EdgeInsets.fromLTRB(20, 0, 20, 100),
                           itemCount: filtered.length,
-                          separatorBuilder: (_, _) =>
+                          separatorBuilder: (_, __) =>
                               const SizedBox(height: 8),
-                          itemBuilder: (_, i) =>
-                              _TxCard(tx: filtered[i]),
+                          itemBuilder: (_, i) => _TxCard(tx: filtered[i]),
                         ),
                       ),
           ),
@@ -179,16 +182,14 @@ class _SummaryStrip extends StatelessWidget {
             color: AppColors.error,
             icon: Icons.arrow_upward,
           ),
-          Container(
-              width: 1, height: 32, color: AppColors.darkBorder),
+          Container(width: 1, height: 32, color: AppColors.darkBorder),
           _StatItem(
             label: 'Reçus',
             value: Formatter.compactCurrency(totalReceived, 'HTG'),
             color: AppColors.success,
             icon: Icons.arrow_downward,
           ),
-          Container(
-              width: 1, height: 32, color: AppColors.darkBorder),
+          Container(width: 1, height: 32, color: AppColors.darkBorder),
           _StatItem(
             label: 'Total',
             value: '${transactions.length}',
@@ -227,8 +228,7 @@ class _StatItem extends StatelessWidget {
                 fontFamily: 'SpaceMono',
                 fontSize: 12)),
         Text(label,
-            style: const TextStyle(
-                fontSize: 10, color: AppColors.textMuted)),
+            style: const TextStyle(fontSize: 10, color: AppColors.textMuted)),
       ],
     );
   }
@@ -276,7 +276,7 @@ class _TxCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  tx.receiverName ?? tx.receiverPhone,
+                  tx.receiverName ?? tx.receiverPhone ?? 'Unknown',
                   style: theme.textTheme.titleSmall,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -381,13 +381,20 @@ class _StatusBadge extends StatelessWidget {
     String l;
     switch (status) {
       case TransactionStatus.completed:
-        c = AppColors.success; l = 'Complété'; break;
+        c = AppColors.success;
+        l = 'Complété';
+        break;
       case TransactionStatus.pending:
-        c = AppColors.warning; l = 'En attente'; break;
+        c = AppColors.warning;
+        l = 'En attente';
+        break;
       case TransactionStatus.failed:
-        c = AppColors.error; l = 'Échoué'; break;
+        c = AppColors.error;
+        l = 'Échoué';
+        break;
       default:
-        c = AppColors.textMuted; l = status.name;
+        c = AppColors.textMuted;
+        l = status.name;
     }
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -396,8 +403,8 @@ class _StatusBadge extends StatelessWidget {
         borderRadius: BorderRadius.circular(6),
       ),
       child: Text(l,
-          style: TextStyle(
-              color: c, fontSize: 10, fontWeight: FontWeight.w600)),
+          style:
+              TextStyle(color: c, fontSize: 10, fontWeight: FontWeight.w600)),
     );
   }
 }
@@ -415,9 +422,7 @@ class _EmptyState extends StatelessWidget {
           const Icon(Icons.search_off, size: 64, color: AppColors.textMuted),
           const SizedBox(height: 16),
           Text(
-            hasFilter
-                ? 'Aucun résultat'
-                : 'Aucune transaction',
+            hasFilter ? 'Aucun résultat' : 'Aucune transaction',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   color: AppColors.textMuted,
                 ),

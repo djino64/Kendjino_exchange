@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "457077677543",
+    "project_id": "kendjino-exchange",
+    "storage_bucket": "kendjino-exchange.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457077677543:android:4a1e52abeeeaa878a17142",
+        "android_client_info": {
+          "package_name": "com.example.kendjino_exchange"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyQPHRnD9QGLs2sB1V8vxuu0qnydI5KiI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

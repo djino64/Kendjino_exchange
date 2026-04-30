@@ -1,5 +1,6 @@
 // ─── Virtual Card Entity ──────────────────────────────────────────────────────
 import 'package:equatable/equatable.dart';
+
 class VirtualCardEntity extends Equatable {
   final String id;
   final String userId;
@@ -14,8 +15,7 @@ class VirtualCardEntity extends Equatable {
   final CardStatus status;
   final bool isVirtual;
   final DateTime issuedAt;
-  final Color? cardColor;
- 
+
   const VirtualCardEntity({
     required this.id,
     required this.userId,
@@ -30,20 +30,13 @@ class VirtualCardEntity extends Equatable {
     this.status = CardStatus.active,
     this.isVirtual = true,
     required this.issuedAt,
-    this.cardColor,
   });
- 
+
   String get displayNumber => '**** **** **** $last4';
   String get displayExpiry => '$expiryMonth/$expiryYear';
- 
+
   @override
   List<Object?> get props => [id, userId, last4, status];
 }
- 
+
 enum CardStatus { active, frozen, expired, cancelled }
- 
-// Temporary color placeholder (not importing dart:ui for entity layer)
-class Color {
-  final int value;
-  const Color(this.value);
-}

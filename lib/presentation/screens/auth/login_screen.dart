@@ -33,7 +33,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
     );
     _fadeIn = CurvedAnimation(parent: _animController, curve: Curves.easeOut);
     _slideIn = Tween<Offset>(begin: const Offset(0, 0.12), end: Offset.zero)
-        .animate(CurvedAnimation(parent: _animController, curve: Curves.easeOut));
+        .animate(
+            CurvedAnimation(parent: _animController, curve: Curves.easeOut));
     _animController.forward();
   }
 
@@ -147,7 +148,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
                     const SizedBox(height: 48),
 
                     Text(
-                      'Bienvenue 👋',
+                      'Bienvenue sur Kendjino EXCHANGE',
                       style: theme.textTheme.headlineMedium,
                     ),
                     const SizedBox(height: 6),
@@ -167,10 +168,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
                           // Phone field
                           Container(
                             decoration: BoxDecoration(
-                              color: isDark ? AppColors.darkCard : AppColors.lightCard,
+                              color: isDark
+                                  ? AppColors.darkCard
+                                  : AppColors.lightCard,
                               borderRadius: BorderRadius.circular(14),
                               border: Border.all(
-                                color: isDark ? AppColors.darkBorder : const Color(0xFFE0E7F0),
+                                color: isDark
+                                    ? AppColors.darkBorder
+                                    : const Color(0xFFE0E7F0),
                               ),
                             ),
                             child: Row(
@@ -192,13 +197,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
                                     ),
                                     child: Row(
                                       children: [
-                                        Text('🇭🇹', style: const TextStyle(fontSize: 18)),
+                                        const Text('🇭🇹',
+                                            style: TextStyle(fontSize: 18)),
                                         const SizedBox(width: 4),
                                         Text(
                                           _countryCode,
                                           style: theme.textTheme.titleMedium,
                                         ),
-                                        const Icon(Icons.arrow_drop_down, size: 18),
+                                        const Icon(Icons.arrow_drop_down,
+                                            size: 18),
                                       ],
                                     ),
                                   ),
@@ -213,15 +220,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
                                       LengthLimitingTextInputFormatter(8),
                                     ],
                                     decoration: const InputDecoration(
-                                      hintText: '34 56 7890',
+                                      hintText: '4130 0944',
                                       border: InputBorder.none,
                                       enabledBorder: InputBorder.none,
                                       focusedBorder: InputBorder.none,
-                                      contentPadding: EdgeInsets.symmetric(horizontal: 14),
+                                      contentPadding:
+                                          EdgeInsets.symmetric(horizontal: 14),
                                     ),
                                     validator: (v) {
                                       if (v == null || v.isEmpty) return null;
-                                      if (v.length < 8) return 'Numéro incomplet';
+                                      if (v.length < 8)
+                                        return 'Numéro incomplet';
                                       return null;
                                     },
                                     style: theme.textTheme.titleMedium,

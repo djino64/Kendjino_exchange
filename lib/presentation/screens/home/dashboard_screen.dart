@@ -80,7 +80,7 @@ class DashboardScreen extends ConsumerWidget {
 
                   // ── Greeting ───────────────────────────────────────────────
                   Text(
-                    'Bonjour, ${user?.displayName?.split(' ').first ?? 'Utilisateur'} 👋',
+                    'Bonjour, ${user?.displayName?.split(' ').first ?? 'Utilisateur'}',
                     style: theme.textTheme.headlineSmall,
                   ),
                   const SizedBox(height: 20),
@@ -118,7 +118,8 @@ class DashboardScreen extends ConsumerWidget {
                     const Center(
                       child: Padding(
                         padding: EdgeInsets.all(32),
-                        child: CircularProgressIndicator(color: AppColors.primary),
+                        child:
+                            CircularProgressIndicator(color: AppColors.primary),
                       ),
                     )
                   else if (txState.transactions.isEmpty)
@@ -142,7 +143,8 @@ class DashboardScreen extends ConsumerWidget {
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
         icon: const Icon(Icons.send_rounded),
-        label: const Text('Envoyer', style: TextStyle(fontWeight: FontWeight.w700)),
+        label: const Text('Envoyer',
+            style: TextStyle(fontWeight: FontWeight.w700)),
       ),
     );
   }
@@ -165,8 +167,8 @@ class _BalanceCardState extends State<_BalanceCard> {
   Widget build(BuildContext context) {
     final wallet = widget.walletState.wallet;
     final balance = _currency == 'HTG'
-        ? (wallet?.htgBalance ?? 0)
-        : (wallet?.usdBalance ?? 0);
+        ? (wallet?.getBalance('HTG') ?? 0)
+        : (wallet?.getBalance('USD') ?? 0);
 
     return Container(
       padding: const EdgeInsets.all(24),
@@ -240,13 +242,12 @@ class _BalanceCardState extends State<_BalanceCard> {
               ? const SizedBox(
                   height: 48,
                   child: Center(
-                    child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                    child: CircularProgressIndicator(
+                        color: Colors.white, strokeWidth: 2),
                   ),
                 )
               : Text(
-                  _hidden
-                      ? '•••••'
-                      : Formatter.currency(balance, _currency),
+                  _hidden ? '•••••' : Formatter.currency(balance, _currency),
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 36,
@@ -261,7 +262,8 @@ class _BalanceCardState extends State<_BalanceCard> {
           // Wallet number
           Row(
             children: [
-              Icon(Icons.credit_card, color: Colors.white.withOpacity(0.7), size: 16),
+              Icon(Icons.credit_card,
+                  color: Colors.white.withOpacity(0.7), size: 16),
               const SizedBox(width: 6),
               Text(
                 wallet?.walletNumber ?? '----',
@@ -408,7 +410,7 @@ class _CryptoMiniWidget extends ConsumerWidget {
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: cryptoState.assets.length,
-            separatorBuilder: (_, _) => const SizedBox(width: 12),
+            separatorBuilder: (_, __) => const SizedBox(width: 12),
             itemBuilder: (context, i) {
               final asset = cryptoState.assets[i];
               final isUp = asset.change24h >= 0;
@@ -419,7 +421,8 @@ class _CryptoMiniWidget extends ConsumerWidget {
                   color: isDark ? AppColors.darkCard : Colors.white,
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color: isDark ? AppColors.darkBorder : const Color(0xFFE8EDF2),
+                    color:
+                        isDark ? AppColors.darkBorder : const Color(0xFFE8EDF2),
                   ),
                 ),
                 child: Column(
@@ -436,8 +439,7 @@ class _CryptoMiniWidget extends ConsumerWidget {
                           ),
                         ),
                         const SizedBox(width: 6),
-                        Text(asset.symbol,
-                            style: theme.textTheme.titleMedium),
+                        Text(asset.symbol, style: theme.textTheme.titleMedium),
                       ],
                     ),
                     const SizedBox(height: 8),
@@ -512,7 +514,7 @@ class _TransactionTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  tx.receiverName ?? tx.receiverPhone,
+                  tx.receiverName ?? tx.receiverPhone ?? 'Unknown',
                   style: theme.textTheme.titleSmall,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -554,13 +556,20 @@ class _StatusChip extends StatelessWidget {
     String label;
     switch (status) {
       case TransactionStatus.completed:
-        color = AppColors.success; label = 'Complété'; break;
+        color = AppColors.success;
+        label = 'Complété';
+        break;
       case TransactionStatus.pending:
-        color = AppColors.warning; label = 'En attente'; break;
+        color = AppColors.warning;
+        label = 'En attente';
+        break;
       case TransactionStatus.failed:
-        color = AppColors.error; label = 'Échoué'; break;
+        color = AppColors.error;
+        label = 'Échoué';
+        break;
       default:
-        color = AppColors.textMuted; label = status.name;
+        color = AppColors.textMuted;
+        label = status.name;
     }
 
     return Container(
@@ -572,7 +581,7 @@ class _StatusChip extends StatelessWidget {
       child: Text(
         label,
         style: TextStyle(
-          color: backgroundColor,
+          color: color,
           fontSize: 10,
           fontWeight: FontWeight.w600,
         ),

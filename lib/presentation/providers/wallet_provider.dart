@@ -41,7 +41,7 @@ class WalletState {
   double get totalUsd {
     if (wallet == null) return 0;
     final rate = htgUsdRate?.rate ?? 0.0075;
-    return (wallet!.htgBalance * rate) + wallet!.usdBalance;
+    return (wallet!.getBalance('HTG') * rate) + wallet!.getBalance('USD');
   }
 }
 
