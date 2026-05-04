@@ -73,7 +73,7 @@ class Fixtures {
   static WalletEntity get fullWallet => WalletEntity(
         id: 'wallet_001',
         userId: 'uid_test_001',
-        balances: {
+        balances: const {
           'HTG': 15500.75,
           'USD': 117.20,
           'USDT': 50.0,
@@ -86,7 +86,7 @@ class Fixtures {
   static WalletEntity get emptyWallet => WalletEntity(
         id: 'wallet_002',
         userId: 'uid_test_002',
-        balances: {'HTG': 0.0},
+        balances: const {'HTG': 0.0},
         lastUpdated: _now,
         walletNumber: 'KX-2025-005678',
       );
@@ -228,7 +228,7 @@ void main() {
     });
 
     test('all KycStatus values are distinct', () {
-      final statuses = KycStatus.values;
+      const statuses = KycStatus.values;
       expect(statuses.toSet().length, statuses.length);
     });
 
@@ -320,12 +320,12 @@ void main() {
     });
 
     test('all TransactionType values are distinct', () {
-      final types = TransactionType.values;
+      const types = TransactionType.values;
       expect(types.toSet().length, types.length);
     });
 
     test('all TransactionStatus values are distinct', () {
-      final statuses = TransactionStatus.values;
+      const statuses = TransactionStatus.values;
       expect(statuses.toSet().length, statuses.length);
     });
 
@@ -874,7 +874,7 @@ void main() {
     });
 
     test('inverse rates are consistent', () {
-      final computed = 1.0 / AppConstants.defaultUsdToHtg;
+      const computed = 1.0 / AppConstants.defaultUsdToHtg;
       expect(computed, closeTo(AppConstants.defaultHtgToUsd, 0.001));
     });
 
@@ -1293,13 +1293,13 @@ void main() {
     group('Exchange rate conversions', () {
       test('1 USD converts to correct HTG at default rate', () {
         const usd = 1.0;
-        final htg = usd * AppConstants.defaultUsdToHtg;
+        const htg = usd * AppConstants.defaultUsdToHtg;
         expect(htg, closeTo(132.5, 0.1));
       });
 
       test('1 HTG converts to correct USD at default rate', () {
         const htg = 1.0;
-        final usd = htg * AppConstants.defaultHtgToUsd;
+        const usd = htg * AppConstants.defaultHtgToUsd;
         expect(usd, closeTo(0.0075, 0.0001));
       });
 

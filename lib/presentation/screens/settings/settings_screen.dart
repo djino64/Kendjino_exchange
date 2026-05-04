@@ -28,7 +28,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final locale = ref.watch(localeProvider);
 
     return Scaffold(
-      backgroundColor: theme.colorScheme.background,
+      backgroundColor: theme.colorScheme.surface,
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
@@ -47,7 +47,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 padding: const EdgeInsets.only(right: 8),
                 child: IconButton(
                   onPressed: () => _showAppInfo(context, theme, isDark),
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.info_outline_rounded,
                     color: AppTheme.textMuted,
                     size: 22,
@@ -348,7 +348,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       child: Text(
                         _label(locale, 'Supprimer mon compte',
                             'Efase kont mwen', 'Delete my account'),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: AppTheme.errorRed,
                           fontSize: 13,
                           fontFamily: 'Satoshi',
@@ -810,7 +810,7 @@ class _SettingsTile extends StatelessWidget {
 
               // Trailing
               trailing ??
-                  Icon(
+                  const Icon(
                     Icons.chevron_right_rounded,
                     color: AppTheme.textMuted,
                     size: 20,
@@ -885,7 +885,7 @@ class _BiometricTile extends ConsumerWidget {
               HapticFeedback.selectionClick();
               ref.read(biometricEnabledProvider.notifier).toggle();
             },
-            activeColor: AppTheme.primaryGreen,
+            activeThumbColor: AppTheme.primaryGreen,
           ),
         ],
       ),
@@ -964,7 +964,7 @@ class _ThemeModeTile extends ConsumerWidget {
               HapticFeedback.selectionClick();
               ref.read(themeModeProvider.notifier).toggle();
             },
-            activeColor: AppTheme.primaryGreen,
+            activeThumbColor: AppTheme.primaryGreen,
           ),
         ],
       ),
@@ -1150,7 +1150,7 @@ class _NotificationTile extends ConsumerWidget {
               HapticFeedback.selectionClick();
               ref.read(notificationsEnabledProvider.notifier).toggle();
             },
-            activeColor: AppTheme.primaryGreen,
+            activeThumbColor: AppTheme.primaryGreen,
           ),
         ],
       ),
@@ -1275,7 +1275,7 @@ class _ExportOption extends StatelessWidget {
                   ],
                 ),
               ),
-              Icon(Icons.download_rounded, color: AppTheme.textMuted, size: 18),
+              const Icon(Icons.download_rounded, color: AppTheme.textMuted, size: 18),
             ],
           ),
         ),

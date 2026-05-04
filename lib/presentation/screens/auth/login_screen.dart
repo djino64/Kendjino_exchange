@@ -229,8 +229,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
                                     ),
                                     validator: (v) {
                                       if (v == null || v.isEmpty) return null;
-                                      if (v.length < 8)
+                                      if (v.length < 8) {
                                         return 'Numéro incomplet';
+                                      }
                                       return null;
                                     },
                                     style: theme.textTheme.titleMedium,

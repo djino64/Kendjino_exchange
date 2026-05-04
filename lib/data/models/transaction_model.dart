@@ -2,6 +2,7 @@
 import '../../domain/entities/entities.dart';
 
 class TransactionModel extends TransactionEntity {
+  @override
   final String? note;
 
   const TransactionModel({

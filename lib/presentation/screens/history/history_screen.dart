@@ -24,8 +24,9 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
     final theme = Theme.of(context);
 
     final filtered = txState.transactions.where((tx) {
-      if (_filter == 'sent' && tx.type != TransactionType.transfer)
+      if (_filter == 'sent' && tx.type != TransactionType.transfer) {
         return false;
+      }
       if (_filter == 'received' &&
           tx.type != TransactionType.received &&
           tx.type != TransactionType.deposit) {
